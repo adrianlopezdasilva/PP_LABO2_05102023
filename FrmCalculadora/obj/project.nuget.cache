@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "5aaedb+Wf8ARLsJwPmbYFrcCxIdBeDu752IPCukNfY/8X5djbI1Ak/DwM0Im7f/ibVmfS/3S+Vhazci4qN289g==",
+  "success": false,
+  "projectFilePath": "C:\\Documents\\Facultad\\Programacion2023C2\\PP_LABO2_05102023\\FrmCalculadora\\MiCalculadora.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Documents\\Facultad\\Programacion2023C2\\PP_LABO2_05102023\\Entidades\\Entidades.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Documents\\Facultad\\Programacion2023C2\\PP_LABO2_05102023\\Entidades\\Entidades.csproj",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
+}
