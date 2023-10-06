@@ -13,7 +13,7 @@ namespace Entidades
 
         internal override double ValorNumerico
         {
-            get { return (double)CambiarSistemaDeNumeracion(ESistema.Decimal); }
+            get { return Convert.ToDouble(Valor); }
         }
 
         SistemaDecimal(string valor) : base(valor) { }
@@ -60,11 +60,11 @@ namespace Entidades
 
             if (auxBinario.ValorNumerico > 0)
             {
-                auxString = Convert.ToString(Convert.ToInt32(valor), 2);
+                auxBinario = Convert.ToString(Convert.ToInt32(valor), 2);
 
             }
 
-            return Numeracion.msgError;
+            return auxBinario;
         }
 
         public static implicit operator  SistemaDecimal(string valor)

@@ -81,7 +81,7 @@ namespace FrmCalculadora
 
         private void rdbDecimal_CheckedChanged(object sender, EventArgs e)
         {
-            Calculadora.Sistema = ESistema.Decimal; ;          
+            Calculadora.Sistema = ESistema.Decimal;       
         }
 
         private void rdbBinario_CheckedChanged(object sender, EventArgs e)
@@ -89,11 +89,11 @@ namespace FrmCalculadora
             Calculadora.Sistema = ESistema.Binario;
         }
 
-        private void MostrarHistorial()
+       /* private void MostrarHistorial()
         {
             this.lstHistorial.DataSource = null;
             this.lstHistorial.DataSource =
             this.calculadora.Operaciones;
-        }
+        }*/
     }
 }

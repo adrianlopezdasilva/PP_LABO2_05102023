@@ -17,7 +17,7 @@
 
         virtual internal double ValorNumerico
         {
-            get { return Convert.ToDouble(Valor); }
+            get; 
         }
 
         static Numeracion()

@@ -13,8 +13,7 @@ namespace Entidades
     {
         internal override double ValorNumerico
         {
-            get { return (double)CambiarSistemaDeNumeracion(ESistema.Decimal); }
-
+            get { return Convert.ToDouble(Valor); }
         }
 
         SistemaBinario(string valor) : base(valor) {}

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj" />
+    <ProjectReference Include="..\PP_LABO2_05102023\Entidades\Entidades.csproj" />
   </ItemGroup>
 
 </Project>
