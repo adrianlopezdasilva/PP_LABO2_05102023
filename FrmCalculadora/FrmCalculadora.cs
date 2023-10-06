@@ -4,23 +4,21 @@ namespace FrmCalculadora
 {
     public partial class FrmCalculadora : Form
     {
-        private Numeracion resultado;
-        private Operacion calculadora;
-        private Numeracion primerOperando;
-        private Numeracion segundoOperando;
-        private ESistema sistema;
+        private FrmCalculadora calculadora;
 
         public FrmCalculadora()
         {
             InitializeComponent();
+            this.calculadora = new Calculadora("Adrian Lopez Da Silva");
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            txtPrimerOperador.Text = string.Empty;
-            txtSegundoOperador.Text = string.Empty;
-            lblResultado.Text = string.Empty;
-            resultado = null;
+            this.calculadora.EliminarHistorialDeOperaciones();
+            this.txtPrimerOperando.Text = string.Empty;
+            this.txtSegundoOperando.Text = string.Empty;
+            this.lblResultado.Text = $"Resultado:";
+            this.MostrarHistorial();
         }
 
         private void setResultado()
@@ -52,28 +50,24 @@ namespace FrmCalculadora
         private void btnOperar_Click(object sender, EventArgs e)
         {
 
-            string auxPrimerOperando = txtPrimerOperador.Text;
-            string auxSegundoOperando = txtSegundoOperador.Text;
-
-            double.TryParse(auxPrimerOperando, out double primerOperandoValor);
-            double.TryParse(auxSegundoOperando, out double segundoOperandoValor);
-
-
-            Numeracion primerOperando = new Numeracion(primerOperandoValor, this.sistema);
-            Numeracion segundoOperando = new Numeracion(segundoOperandoValor, this.sistema);
-
-            Operacion calculadora = new Operacion(primerOperando, segundoOperando);
-            resultado = calculadora.Operar(Convert.ToChar(cmbOperacion.Text));
-            setResultado();
+                char operador;
+                calculadora.PrimerOperando =
+                this.GetOperador(this.txtPrimerOperando.Text);
+                calculadora.SegundoOperando =
+                this.GetOperador(this.txtSegundoOperando.Text);
+                operador = (char)this.cmbOperacion.SelectedItem;
+                this.calculadora.Calcular(operador);
+                this.calculadora.ActualizaHistorialDeOperaciones(operador);
+                this.lblResultado.Text = $"Resultado:{ calculadora.Resultado.Valor}";
+                this.MostrarHistorial();
         }
 
         private void FrmCalculadora_Load(object sender, EventArgs e)
         {
-            cmbOperacion.Items.Add("+");
-            cmbOperacion.Items.Add("-");
-            cmbOperacion.Items.Add("*");
-            cmbOperacion.Items.Add("/");
+            this.cmbOperacion.DataSource = new char[]
+            { '+', '-', '*','/' };
             rdbDecimal.Checked = true;
+
         }
 
         private void txtPrimerOperador_TextChanged(object sender, EventArgs e)
@@ -87,13 +81,19 @@ namespace FrmCalculadora
 
         private void rdbDecimal_CheckedChanged(object sender, EventArgs e)
         {
-            this.sistema = ESistema.Decimal;          
+            Calculadora.Sistema = ESistema.Decimal; ;          
         }
 
         private void rdbBinario_CheckedChanged(object sender, EventArgs e)
         {
-            this.sistema = ESistema.Binario;
-            
+            Calculadora.Sistema = ESistema.Binario;
+        }
+
+        private void MostrarHistorial()
+        {
+            this.lstHistorial.DataSource = null;
+            this.lstHistorial.DataSource =
+            this.calculadora.Operaciones;
         }
     }
 }

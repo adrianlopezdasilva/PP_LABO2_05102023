@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    internal class Calculadora
+    public class Calculadora
     {
         private string nombreAlumno;
         private List<string> operaciones;
@@ -78,30 +78,33 @@ namespace Entidades
 
             if(auxPrimerNumeracion == auxSegundoNumeracion )
 
-            switch (operador)
             {
-                case '+':
-                    auxResultado.Valor = auxPrimerNumeracion.ValorNumerico + auxSegundoNumeracion.ValorNumerico;
-                    break;
+                switch (operador)
+                {
+                    case '+':
+                        auxResultado.ValorNumerico = auxPrimerNumeracion.ValorNumerico + auxSegundoNumeracion.ValorNumerico;
+                        break;
 
-                case '-':
-                    auxResultado = PrimerOperando - SegundoOperando;
-                    break;
-                case '*':
-                    auxResultado = PrimerOperando * SegundoOperando;
-                    break;
-                case '/':
-                    auxResultado = PrimerOperando / SegundoOperando;
-                    break;
+                    case '-':
+                        auxResultado = PrimerOperando - SegundoOperando;
+                        break;
+                    case '*':
+                        auxResultado = PrimerOperando * SegundoOperando;
+                        break;
+                    case '/':
+                        auxResultado = PrimerOperando / SegundoOperando;
+                        break;
 
-                default:
-                    auxResultado = PrimerOperando + SegundoOperando;
-                    break;
+                    default:
+                        auxResultado = PrimerOperando + SegundoOperando;
+                        break;
+                }
+
             }
 
             else
             {
-
+                auxResultado.ValorNumerico = double.MinValue;
             }
 
             return auxResultado;
