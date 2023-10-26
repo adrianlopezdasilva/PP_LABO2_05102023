@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace Entidades
 
         internal override double ValorNumerico
         {
-            get { return Convert.ToDouble(Valor); }
+            get { return (double)this; }
         }
 
         SistemaDecimal(string valor) : base(valor) { }
@@ -21,60 +22,54 @@ namespace Entidades
 
         public override Numeracion CambiarSistemaDeNumeracion(ESistema sistema)
         {
-            SistemaDecimal auxDecimal = null;
-
-            if (sistema == ESistema.Decimal)
+            switch(sistema)
             {
-                 auxDecimal = new SistemaDecimal(valor);
+                case ESistema.Binario:
+                    return this.DecimalABinario();
 
             }
 
-            return auxDecimal;
+            return this;
+
         }
 
-        protected bool EsNumacionValida(string valor )
+        protected override bool EsNumeracionValida(string valor )
         {
-            bool auxbool = true;
-
-            if (base.EsNumeracionValida(valor) == false || EsSistemaDecimalValido(valor) == false)
-            {
-                auxbool = false;
-            }
-            return auxbool;
+         return base.EsNumeracionValida(valor) && this.EsSistemaDecimalValido(valor);
         }
         private bool EsSistemaDecimalValido(string valor)
         {
-            bool auxBool = true;
-
-            if (double.TryParse(valor, out double doubleValor) == false)
-            {
-                auxBool = false;
-            }
-
-            return auxBool;
+            return double.TryParse(valor, out double value);
         }
 
         private SistemaBinario DecimalABinario()
         {
-            SistemaBinario auxBinario = new SistemaBinario(valor);
+            int valor = (int)this.ValorNumerico;
 
-            if (auxBinario.ValorNumerico > 0)
+            if(valor >0)
             {
-                auxBinario = Convert.ToString(Convert.ToInt32(valor), 2);
+                string binario = string.Empty;
+                while (valor > 0)
+                {
+                    int resto = valor % 2;
+                    valor = valor / 2;
 
+                    binario = resto + binario;
+                }
+                return binario;
             }
 
-            return auxBinario;
+            return Numeracion.msgError;
         }
 
-        public static implicit operator  SistemaDecimal(string valor)
+        public static implicit operator SistemaDecimal(string valor)
         {
-            return;
+            return new SistemaDecimal(valor);
         }
 
         public static implicit operator SistemaDecimal(double valor)
         {
-            return;
+            return new SistemaDecimal(valor.ToString());
         }
     }
 

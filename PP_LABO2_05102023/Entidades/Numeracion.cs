@@ -12,29 +12,33 @@
 
         public string Valor
         {
-            get { return valor; }
+            get { return this.valor; }
         }
 
-        virtual internal double ValorNumerico
+        internal abstract double ValorNumerico
         {
             get; 
         }
 
         static Numeracion()
         {
-            msgError = "Numero Invalido";
+            Numeracion.msgError = "Numero Invalido";
         }
 
         protected Numeracion(string valor)
         {
-            InicializarValor(valor);
+            this.InicializarValor(valor);
         }
 
         private void InicializarValor(string valor)
         {
-           if( EsNumeracionValida(valor) == false)
+           if(this.EsNumeracionValida(valor))
             {
-                valor = msgError;
+                this.valor = valor;
+            }
+           else
+            {
+                this.valor = Numeracion.msgError;
             }
         }
 
@@ -42,14 +46,9 @@
 
         virtual protected bool EsNumeracionValida(string valor)
         {
-            bool auxBool = true;
 
-            if(string.IsNullOrWhiteSpace(valor))
-            {
-                auxBool = false;
-            }
-
-            return auxBool;
+            return !string.IsNullOrWhiteSpace(valor);
+   
         }
 
         public static explicit operator double(Numeracion numeracion)
@@ -59,7 +58,7 @@
 
         public static bool operator == (Numeracion n1, Numeracion n2)
         {
-            return (n1.GetType() == n2.GetType());
+            return n1 is not null && n2 is not null && n1.GetType() == n2.GetType();
         }
 
         public static bool operator !=(Numeracion n1, Numeracion n2)

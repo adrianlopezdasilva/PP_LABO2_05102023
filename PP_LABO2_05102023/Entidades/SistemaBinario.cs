@@ -60,10 +60,29 @@ namespace Entidades
           
         private SistemaDecimal BinarioADecimal()
         {
-            
+            if (base.valor != Numeracion.msgError)
+                {
+                    int potencia = base.valor.Length - 1;
+                    int resultado = 0;
+
+                    foreach (char item in base.valor)
+                    {
+                        if (item == '1')
+                        {
+                            resultado = resultado + (int)Math.Pow(x: 2, potencia);
+                        }
+                        potencia--;
+                    }
+                    return resultado;
+                }
+                return double.MinValue;
+        } 
+
+        public static implicit operator SistemaBinario(string valor)
+        {
+            return new SistemaBinario(valor);
         }
 
-        public SistemaBinario implicit operator SistemaBinario(string valor);
 
 
     }

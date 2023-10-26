@@ -15,20 +15,20 @@ namespace Entidades
         private Numeracion segundoOperando;
         private static ESistema sistema;
 
-        private Calculadora()
+        static Calculadora()
         {
-            sistema = ESistema.Decimal;
+            Calculadora.sistema = ESistema.Decimal;
 
         }
 
         public Calculadora()
         {
-            operaciones = new List<string>();
+            this.operaciones = new List<string>();
         }
 
-        public Calculadora(string nombreAlumno)
+        public Calculadora(string nombreAlumno) :this()
         {
-
+            this.nombreAlumno = nombreAlumno;
         }
 
         public List<string> Operaciones
@@ -65,7 +65,7 @@ namespace Entidades
         }
         public void Calcular()
         {
-            Numeracion auxNumeracion;
+            this.Calcular('+');
 
         }
 
@@ -108,6 +108,11 @@ namespace Entidades
             }
 
             return auxResultado;
+        }
+
+        private Numeracion MapeaResultado(double valor)
+        {
+            return 0;
         }
 
 
